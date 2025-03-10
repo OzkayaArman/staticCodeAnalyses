@@ -1,3 +1,5 @@
+package Cyclic;
+
 public class CyclicB {
     // Field dependency on CyclicC
     private CyclicC c;
