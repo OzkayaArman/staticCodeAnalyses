@@ -1,4 +1,4 @@
-package uk.ac.standrews.inheritenceHierarchy;
+package uk.ac.standrews.inheritanceHierarchy;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import com.github.javaparser.utils.SourceRoot;
 /**
  * 
  */
-public class InheritenceAnalyses {
+public class InheritanceAnalyses {
     private final HashMap<String, Integer> parentChildMap;
     private final List<CompilationUnit> asts;
 
@@ -23,7 +23,7 @@ public class InheritenceAnalyses {
      * 
      * @param dir
      */
-    public InheritenceAnalyses(String dir) {
+    public InheritanceAnalyses(String dir) {
         this.parentChildMap = new HashMap<>();
         this.asts = getAsts(dir);
     }
