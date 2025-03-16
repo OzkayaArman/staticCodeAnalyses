@@ -6,6 +6,8 @@ public class control {
         // If statement
         if (number < 0) {
             return "Negative number"; // Return statement
+        }else if(number == 0){
+            System.out.println("Non negative number");
         }
 
         // Switch-case statement
