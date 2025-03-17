@@ -1,4 +1,4 @@
-package Examples.Example;
+package Examples.Inheritance;
 
 public class Class6 extends Class5 {
     

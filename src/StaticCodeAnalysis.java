@@ -27,7 +27,7 @@ public class StaticCodeAnalysis {
             System.out.println("Total number of switch case statements: " + ControlFlow.switchCaseCount.get());
 
             //Nandi 
-            InheritanceAnalyses ia = new InheritanceAnalyses("examples/example");
+            InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance");
             ia.findMaximumBreadth();
             ia.findAverageBranchingFactor();
             
