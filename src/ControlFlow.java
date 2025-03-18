@@ -1,5 +1,6 @@
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.ast.expr.ConditionalExpr;
 import com.github.javaparser.ast.stmt.DoStmt;
@@ -25,8 +26,8 @@ public class ControlFlow {
     public static final AtomicInteger forEachStatementCount = new AtomicInteger(0);
     public static final AtomicInteger whileStatementCount = new AtomicInteger(0);
     public static final AtomicInteger doStatementCount = new AtomicInteger(0);
-    public static final AtomicInteger returnStatementCount = new AtomicInteger(0);
     public static final AtomicInteger switchCaseCount = new AtomicInteger(0);
+    public static final AtomicInteger methodNumberCount = new AtomicInteger(0);
     
     // Parses all Java files in the given project directory and builds the dependency graph.
     public void parseProject(File projectDir) throws Exception {
@@ -45,7 +46,7 @@ public class ControlFlow {
             VoidVisitorAdapter<AtomicInteger> forEachVisitor = new forEachVisitor();
             VoidVisitorAdapter<AtomicInteger> whileVisitor = new whileVisitor();
             VoidVisitorAdapter<AtomicInteger> doWhileVisitor = new doWhileVisitor();
-            VoidVisitorAdapter<AtomicInteger> returnVisitor = new returnVisitor();
+            VoidVisitorAdapter<AtomicInteger> methodNumberVisitor = new methodNumberVisitor();
             VoidVisitorAdapter<AtomicInteger> switchCaseVisitor = new switchVisitor();
             
             ifVisitor.visit(cu,ifStatementCount);
@@ -53,11 +54,16 @@ public class ControlFlow {
             forEachVisitor.visit(cu,forEachStatementCount);
             whileVisitor.visit(cu,whileStatementCount);
             doWhileVisitor.visit(cu,doStatementCount);
-            returnVisitor.visit(cu,returnStatementCount);
+            methodNumberVisitor.visit(cu,methodNumberCount);
             switchCaseVisitor.visit(cu,switchCaseCount);
         }
     }
 
+    //GAP: Calculation Methodology Source https://bluinsights.aws/docs/codebase-cyclomatic-complexity/
+    public static int calculateCyclometicComplexity(){
+        int decisionPoints = ControlFlow.ifStatementCount.get() + ControlFlow.forEachStatementCount.get() + ControlFlow.forStatementCount.get() + ControlFlow.whileStatementCount.get() + ControlFlow.switchCaseCount.get();
+        return (decisionPoints / ControlFlow.methodNumberCount.get()) + 1;
+    }
     /**
      * This class extends voidVisitorAdapter to count the number of if statements 
      */
@@ -117,10 +123,10 @@ public class ControlFlow {
     /**
     * This class extends voidVisitorAdapter to count the number of do...while statements 
     */
-    private static class returnVisitor extends VoidVisitorAdapter<AtomicInteger> {
+    private static class methodNumberVisitor extends VoidVisitorAdapter<AtomicInteger> {
         @Override
-        public void visit(ReturnStmt returnStmt, AtomicInteger counter) {
-            super.visit(returnStmt, counter);
+        public void visit(MethodDeclaration methodDec, AtomicInteger counter) {
+            super.visit(methodDec, counter);
             counter.incrementAndGet(); // Increments count for each while statement
         }
     }
