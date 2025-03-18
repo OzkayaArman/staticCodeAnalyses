@@ -1,4 +1,4 @@
-package Examples.Example;
+package Example;
 
 public class Class4 {
     

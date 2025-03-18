@@ -1,4 +1,4 @@
-package Examples.noControl;
+package noControl;
 
 public class noControl {
     public static int square(int x) {

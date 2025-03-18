@@ -87,7 +87,6 @@ public class InheritanceAnalyses {
      * 
      */
     private static class ChildCollector extends VoidVisitorAdapter<HashMap<String, Integer>> {
-
         @Override
         public void visit(ClassOrInterfaceDeclaration cd, HashMap<String, Integer> map) {
             super.visit(cd, map);
@@ -138,7 +137,6 @@ public class InheritanceAnalyses {
         avgBranchingFactor = Math.round(avgBranchingFactor * 100.0) / 100.0;
 
         System.out.println("Average branching rate for entire directory: " + avgBranchingFactor);
-
     }
 
 }

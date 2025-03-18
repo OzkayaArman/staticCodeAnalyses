@@ -23,8 +23,9 @@ public class StaticCodeAnalysis {
             System.out.println("Total number of for...each statement: " + ControlFlow.forEachStatementCount.get());
             System.out.println("Total number of while statements: " + ControlFlow.whileStatementCount.get());
             System.out.println("Total number of do...while statements: " + ControlFlow.doStatementCount.get());
-            System.out.println("Total number of return statements: " + ControlFlow.returnStatementCount.get());
             System.out.println("Total number of switch case statements: " + ControlFlow.switchCaseCount.get());
+
+            System.out.println("Your t")
 
             //Nandi 
             InheritanceAnalyses ia = new InheritanceAnalyses("examples/example");

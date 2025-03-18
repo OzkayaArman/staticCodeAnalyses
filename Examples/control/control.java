@@ -1,4 +1,4 @@
-package Examples.control;
+package control;
 
 public class control {
 
