@@ -1,60 +1,70 @@
-package Examples.control;
+package control;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class control {
 
-    public static String processNumber(int number) {
-        // If statement
-        if (number < 0) {
-            return "Negative number"; // Return statement
-        }else if(number == 0){
-            System.out.println("Non negative number");
+    public static void processNumber(int number) {
+        int testNumber = 10;
+        int noOfAcceptors = 3;
+        int maxProcessSteps = 50; 
+        List<Integer> acceptors = new ArrayList<>();
+
+
+        if(testNumber < noOfAcceptors){
+            System.out.println("If Statement");
+        }
+        if(testNumber < noOfAcceptors){
+            System.out.println("If Statement");
+        }
+        if(testNumber < noOfAcceptors){
+            System.out.println("If Statement");
         }
 
-        // Switch-case statement
-        switch (number % 3) {
-            case 0:
-                System.out.println("Divisible by 3");
-                break;
-            case 1:
-                System.out.println("Remainder 1 when divided by 3");
-                break;
-            case 2:
-                System.out.println("Remainder 2 when divided by 3");
-                break;
-            default:
-                System.out.println("Unexpected case");
+        //For loop
+        for (int i = 0; i < maxProcessSteps; i++) {
+            acceptors.add(1);
         }
 
-        // For loop
-        int sum = 0;
-        for (int i = 0; i < number; i++) {
-            sum += i;
-        }
-        System.out.println("Sum of numbers from 0 to " + (number - 1) + ": " + sum);
-
-        // While loop
-        int count = 0;
-        while (count < 3) {
-            System.out.println("While loop iteration: " + count);
-            count++;
-        }
-
-        // For-each loops
-        int[] values = { 1, 2, 3, 4, 5 };
-        for (int val : values) {
-            System.out.println("Value: " + val);
-        }
-
-        int[] values2 = { 1, 2, 3, 4, 5 };
-        for (int val : values2) {
-            System.out.println("Value: " + val);
+        for(int x : acceptors){
+            System.out.println(x);
         }
         
+        int i = 0;
+        
+        //Do While loop
+        do{
+            acceptors.add(1);
+            i++;
+        }while(i < maxProcessSteps);
 
-        return "Processing complete"; // Return statement
+        // While loop
+        while(i > 0){
+            i--;
+        }
+
+        
     }
 
+    public boolean nextMethod() {
+        String msg = "";
+        if (msg != null) {
+            switch (msg) {
+                case "": 
+                    System.out.println("Case 1");
+                    break;          
+                case "prepare":
+                    System.out.println("Case 2");
+                    break;
+                default: 
+                    System.out.println("Case default");
+                    return true;
+            }
+        } 
+        return false;
+    }
     public static void main(String[] args) {
-        System.out.println(processNumber(5));
+       processNumber(5);
     }
 }

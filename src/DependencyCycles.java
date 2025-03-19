@@ -1,4 +1,3 @@
-package src;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -23,7 +22,7 @@ public class DependencyCycles {
         // File[] files = projectDir.listFiles((dir, name) -> name.endsWith(".java"));
         List<File> files = new ArrayList<>();
         traverseFolder(projectDir, files);
-        if (files == null)
+        if (files.size() == 0)
             throw new Exception("Directory not found or no Java files in: " + projectDir);
 
         for (File file : files) {
@@ -53,7 +52,7 @@ public class DependencyCycles {
 
         for (File f : list) {
             if (f.isDirectory()) {
-                traverseFolder(root, files);
+                traverseFolder(f, files);
             } else if (f.getName().endsWith(".java")) {
                 files.add(f);
             }
