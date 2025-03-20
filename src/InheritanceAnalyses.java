@@ -186,7 +186,7 @@ public class InheritanceAnalyses {
                 derivedClasses.add(child);
             });
         });
-        numberOfSubClasses = derivedClasses.size();
+        numberOfSubClasses = (double) derivedClasses.size();
         avgBranchingFactor = numberOfSubClasses / numberOfParentClasses;
         avgBranchingFactor = Math.round(avgBranchingFactor * 100.0) / 100.0;
 

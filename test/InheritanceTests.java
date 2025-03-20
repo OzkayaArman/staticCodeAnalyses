@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for the InheritanceAnalyses class
  */
-public class InheritenceTests {
+public class InheritanceTests {
     
     /**
      * Test tthat the maximum breadth is 0 when there is no inheritance in a project
@@ -35,8 +35,8 @@ public class InheritenceTests {
      */
     @Test 
     void testFiveSubClassesWhereMaximumBreadthThree(){
-        InheritanceAnalyses ia = new InheritanceAnalyses("examples/Inheritance/FourSubClass");
-        assertEquals(8, ia.getNumberOfClasses());
+        InheritanceAnalyses ia = new InheritanceAnalyses("examples/Inheritance/FiveSubClass");
+        assertEquals(7, ia.getNumberOfClasses());
         assertEquals(3, ia.getMaximumBreadth());
     }
 
@@ -98,8 +98,7 @@ public class InheritenceTests {
         assertEquals(numParentClasses, ia.getNumberOfParentClasses());
         assertEquals(numSubClasses, ia.getNumberOfSubClasses());
         assertEquals(numSubClasses+numParentClasses, ia.getNumberOfClasses());
-
-        
+        assertEquals(numSubClasses/numParentClasses, ia.getAverageBranchingFactor());
 
     }
 

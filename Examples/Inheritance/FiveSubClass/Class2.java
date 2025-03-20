@@ -1,4 +1,4 @@
-package Inheritance.FourSub;
+package Inheritance.FiveSubClass;
 
 public class Class2 extends Class1 {
 
