@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class InheritanceTests {
     
     /**
-     * Test tthat the maximum breadth is 0 when there is no inheritance in a project
+     * Test that the maximum breadth is 0 when there is no inheritance in a project
      */
     @Test
     void testNoInheritenceMaximumBreadth(){

@@ -12,18 +12,15 @@ import java.util.*;
 
 public class DependencyCycles extends Evaluator {
 
-    // Dependency graph: Fully qualified class name → Set of dependencies (fully
-    // qualified names)
+    // Dependency graph: Fully qualified class name → Set of dependencies (fully qualified names)
     private Map<String, Set<String>> graph = new HashMap<>();
     private Set<List<String>> cycles = new HashSet<>();
 
-    // Parses all Java files in the given project directory and builds the
-    // dependency graph.
+    // Parses all Java files in the given project directory and builds the dependency graph.
     public void parseProject(File projectDir) throws Exception {
         //depricated but used here to avoid excessive refactoring due to time constraints
         StaticJavaParser.getConfiguration().setLanguageLevel(LanguageLevel.JAVA_18); 
 
-        // File[] files = projectDir.listFiles((dir, name) -> name.endsWith(".java"));
         List<File> files = new ArrayList<>();
         traverseFolder(projectDir, files);
         if (files.size() == 0)
