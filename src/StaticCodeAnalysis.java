@@ -27,11 +27,10 @@ public class StaticCodeAnalysis {
         }
 
         try {
-
-            //Nandi 
             InheritanceAnalyses ia = new InheritanceAnalyses(folder);
             broadest =  ia.findMaximumBreadth();
             avgBranchingFactor = ia.findAverageBranchingFactor();
+
             
             //Daniel
 
