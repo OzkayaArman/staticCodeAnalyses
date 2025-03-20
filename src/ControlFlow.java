@@ -2,22 +2,16 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.ast.expr.ConditionalExpr;
 import com.github.javaparser.ast.stmt.DoStmt;
 import com.github.javaparser.ast.stmt.ForEachStmt;
 import com.github.javaparser.ast.stmt.ForStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
-import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.stmt.WhileStmt;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 public class ControlFlow extends Evaluator {
@@ -66,7 +60,11 @@ public class ControlFlow extends Evaluator {
     //GAP: Calculation Methodology Source https://bluinsights.aws/docs/codebase-cyclomatic-complexity/
     public static int calculateCyclometicComplexity(){
         int decisionPoints = ControlFlow.ifStatementCount.getValue() + ControlFlow.forEachStatementCount.getValue() + ControlFlow.forStatementCount.getValue() + ControlFlow.whileStatementCount.getValue() + ControlFlow.switchCaseCount.getValue();
-        return (decisionPoints / ControlFlow.methodNumberCount.getValue()) + 1;
+        try{
+            return (decisionPoints / ControlFlow.methodNumberCount.getValue()) + 1;
+        }catch(ArithmeticException e){
+            return 0;
+        }
     }
     /**
      * This class extends voidVisitorAdapter to count the number of if statements 

@@ -70,7 +70,12 @@ public class InheritanceAnalyses {
      * This method counts the number of subclass each class in the directory has. 
      */
     private void findChildrenForAllClasses() {
-        asts.forEach(ast -> findAllChildrenForClass(ast));
+       // asts.forEach(ast -> findAllChildrenForClass(ast));
+      //System.out.println(asts.get(0));
+        for(int i = 0; i < asts.size() ;i++){
+           // System.out.println(i);
+            findAllChildrenForClass(asts.get(i));
+        }
     }
 
     /**
@@ -109,11 +114,15 @@ public class InheritanceAnalyses {
         @Override
         public void visit(ClassOrInterfaceDeclaration child, HashMap<String,  SubClassCollection> map) {
             super.visit(child, map);
+            if(child.isInterface()){
+                return;
+            }
 
             if (!child.getExtendedTypes().isEmpty()) {
                 child.getExtendedTypes().forEach((cl) -> {
                     String parent = cl.getNameAsString(); //parent class name
                     SubClassCollection parentCollection = map.get(parent);
+                    if(parentCollection == null) return; // Happens if parent is from external library
                     parentCollection.addSubClass(child.getNameAsString()); //adds the child to the parent's set of children
                     parentCollection.setIsParentClass(true); //sets the parent as a base class
                 }); 
@@ -131,17 +140,16 @@ public class InheritanceAnalyses {
     private void findAllChildrenForClass(CompilationUnit ast) {
         VoidVisitor<HashMap<String,  SubClassCollection>> childCollector = new ChildCollector();
         childCollector.visit(ast, parentChildMap);
-
     }
 
     /**
      * This method finds the maximum breadth of the inheritance hierarchy in the directory.
      * It prints the maximum breadth and the classes that have that breadth.
      */
-    public Map<String, HashSet<String>> findMaximumBreadth() {
+    public Map<String, SubClassCollection> findMaximumBreadth() {
         getAllClasses();
         findChildrenForAllClasses();
-        Map<String, HashSet<String>> broadest = new HashMap<>();
+        Map<String, SubClassCollection> broadest = new HashMap<>();
 
 
         for(Entry<String, SubClassCollection> entry : parentChildMap.entrySet()) {    
@@ -150,23 +158,16 @@ public class InheritanceAnalyses {
                 maxBreadth = numberOfChildren;
             }
         }
-
-        System.out.println("The Maximum Breadth of the inheritance hierarchy in this directory is " + maxBreadth);
-
         if(maxBreadth == 0) {
-            return;
+            return new HashMap<>();
         }
-
-        System.out.println("The following classes have "+maxBreadth+" subclasses : ");
-
         for(Entry<String, SubClassCollection> entry : parentChildMap.entrySet()) {    
             int numberOfChildren = entry.getValue().getNumberOfSubClasses();
             if(numberOfChildren == maxBreadth) {
-                System.out.println("\t- "+ entry.getKey() + ", with subclasses:");
-                entry.getValue().getSubClasses().forEach((child) -> {
-                    System.out.println("\t\t- "+child);
-                });
+
+                broadest.put(entry.getKey(), entry.getValue());
             }
+
         };
         return broadest;
     }

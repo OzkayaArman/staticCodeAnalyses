@@ -1,22 +1,18 @@
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ControlFlowTests {
     
     @BeforeAll
     public static void setup() {
         ControlFlow controlFlow = new ControlFlow();
-        File controlDir = new File("examples/control");
+        File controlDir = new File("Examples/control");
 
         try {
             controlFlow.parseProject(controlDir);
