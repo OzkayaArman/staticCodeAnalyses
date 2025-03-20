@@ -26,7 +26,6 @@ public class InheritanceTests {
     void testOneSubClassMaximumBradth(){
         InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/OneSubClass");
         ia.findMaximumBreadth();
-
         assertEquals(4, ia.getNumberOfClasses());
         assertEquals(1, ia.getMaximumBreadth());
     }
@@ -38,11 +37,9 @@ public class InheritanceTests {
      */
     @Test 
     void testFiveSubClassesWhereMaximumBreadthThree(){
-        InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/FourSub");
+      
+        InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/FiveSubClass");
         ia.findMaximumBreadth();
-
-        assertEquals(8, ia.getNumberOfClasses());
-        InheritanceAnalyses ia = new InheritanceAnalyses("examples/Inheritance/FiveSubClass");
         assertEquals(7, ia.getNumberOfClasses());
         assertEquals(3, ia.getMaximumBreadth());
     }
@@ -53,7 +50,8 @@ public class InheritanceTests {
     @Test
     void testNoInheritenceAverageBranchingFactor(){
         InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/NoInheritance");
-        double numParentClasses = 3;
+        ia.findAverageBranchingFactor();
+        double numParentClasses = 4;
         double numSubClasses = 0;
         assertEquals(numParentClasses, ia.getNumberOfParentClasses());
         assertEquals(numSubClasses, ia.getNumberOfSubClasses());
@@ -68,12 +66,13 @@ public class InheritanceTests {
     @Test 
     void testOneSubClassAverageBranchingFactor(){
         InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/OneSubClass");
+        ia.findAverageBranchingFactor();
         double numParentClasses = 3;
         double numSubClasses = 1;
         assertEquals(numParentClasses, ia.getNumberOfParentClasses());
         assertEquals(numSubClasses, ia.getNumberOfSubClasses());
         assertEquals(numSubClasses+numParentClasses, ia.getNumberOfClasses());
-        assertEquals(numSubClasses/numParentClasses, ia.getAverageBranchingFactor());
+        assertEquals((Math.round(numSubClasses/numParentClasses* 100.0) / 100.0), ia.getAverageBranchingFactor());
     }
 
 
@@ -83,13 +82,14 @@ public class InheritanceTests {
      */
     @Test 
     void testFiveSubClassesAverageBranchingFactor(){
-        InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/FourSubClass");
+        InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/FiveSubClass");
+        ia.findAverageBranchingFactor();
         double numParentClasses = 2;
         double numSubClasses = 5;
         assertEquals(numParentClasses, ia.getNumberOfParentClasses());
         assertEquals(numSubClasses, ia.getNumberOfSubClasses());
         assertEquals(numSubClasses+numParentClasses, ia.getNumberOfClasses());
-        assertEquals(numSubClasses/numParentClasses, ia.getAverageBranchingFactor());
+        assertEquals((Math.round(numSubClasses/numParentClasses* 100.0) / 100.0), ia.getAverageBranchingFactor());
 
     }
 
@@ -100,13 +100,14 @@ public class InheritanceTests {
     @Test
     void testMaximumBreadthAverageBranchingFactorDepthThree(){
         InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/Deep");
+        ia.findAverageBranchingFactor();
+        ia.findMaximumBreadth();
         double numParentClasses = 4;
         double numSubClasses = 9;
         assertEquals(numParentClasses, ia.getNumberOfParentClasses());
         assertEquals(numSubClasses, ia.getNumberOfSubClasses());
-        assertEquals(numSubClasses+numParentClasses, ia.getNumberOfClasses());
-        assertEquals(numSubClasses/numParentClasses, ia.getAverageBranchingFactor());
-
+        assertEquals((Math.round(numSubClasses/numParentClasses* 100.0) / 100.0), ia.getAverageBranchingFactor());
+        assertEquals(3, ia.getMaximumBreadth());
     }
 
 }

@@ -36,6 +36,9 @@ public class InheritanceAnalyses {
         this.maxBreadth = 0;
         this.numberOfParentClasses = 0;
         this.numberOfSubClasses = 0;
+
+        getAllClasses();
+        findChildrenForAllClasses();
     }
 
     /**
@@ -147,10 +150,8 @@ public class InheritanceAnalyses {
      * It prints the maximum breadth and the classes that have that breadth.
      */
     public Map<String, SubClassCollection> findMaximumBreadth() {
-        getAllClasses();
-        findChildrenForAllClasses();
+        
         Map<String, SubClassCollection> broadest = new HashMap<>();
-
 
         for(Entry<String, SubClassCollection> entry : parentChildMap.entrySet()) {    
             int numberOfChildren = entry.getValue().getNumberOfSubClasses();
