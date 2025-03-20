@@ -71,12 +71,6 @@ public class DependencyCycles extends Evaluator {
             // Construct the fully qualified name of the current class
             currentClassFQN = packageName.isEmpty() ? n.getNameAsString() : packageName + "." + n.getNameAsString();
 
-            // Capture inheritance dependencies (extends)
-            n.getExtendedTypes().forEach(ext -> addDependency(currentClassFQN, resolveFQN(ext.getNameAsString())));
-
-            // Capture interface implementation dependencies (implements)
-            n.getImplementedTypes().forEach(impl -> addDependency(currentClassFQN, resolveFQN(impl.getNameAsString())));
-
             // Continue visiting the body (fields, methods, etc.)
             super.visit(n, arg);
         }
