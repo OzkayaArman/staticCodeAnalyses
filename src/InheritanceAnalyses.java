@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.github.javaparser.ast.CompilationUnit;
@@ -17,7 +18,7 @@ import com.github.javaparser.utils.SourceRoot;
  * In particular, it finds the maximum breadth of the inheritance hierarchy and the average branching factor.
  * @author 190031593
  */
-public class InheritanceAnalyses {
+public class InheritanceAnalyses extends Evaluator {
     private final HashMap<String, HashSet<String>> parentChildMap; // key is parent class, value is set of children
     private final List<CompilationUnit> asts; //list of the ASTs for the files in the directory
 
@@ -126,9 +127,10 @@ public class InheritanceAnalyses {
      * This method finds the maximum breadth of the inheritance hierarchy in the directory.
      * It prints the maximum breadth and the classes that have that breadth.
      */
-    public void findMaximumBreadth() {
+    public Map<String, HashSet<String>> findMaximumBreadth() {
         getAllClasses();
         findChildrenForAllClasses();
+        Map<String, HashSet<String>> broadest = new HashMap<>();
 
         int maxBreath = 0;
 
@@ -139,18 +141,18 @@ public class InheritanceAnalyses {
             }
         }
 
-        System.out.println("The Maximum Breadth of the inheritance hierarchy in this directory is " + maxBreath);
-        System.out.println("The following classes have "+maxBreath+" subclasses : ");
-
+   
         for(Entry<String, HashSet<String>> entry : parentChildMap.entrySet()) {    
             int numberOfChildren = entry.getValue().size();
             if(numberOfChildren == maxBreath) {
-                System.out.println("\t- "+ entry.getKey() + ", with subclasses:");
-                entry.getValue().forEach((child) -> {
-                    System.out.println("\t\t- "+child);
-                });
+                // System.out.println("\t- "+ entry.getKey() + ", with subclasses:");
+                // entry.getValue().forEach((child) -> {
+                //     System.out.println("\t\t- "+child);
+                // });
+                broadest.put(entry.getKey(), entry.getValue());
             }
         };
+        return broadest;
     }
 
     /**
@@ -159,7 +161,7 @@ public class InheritanceAnalyses {
      * The average branching factor is calculated as:
      * num of non leaf nodes (incl root node) / num of non root nodes
      */
-    public void findAverageBranchingFactor() {
+    public double findAverageBranchingFactor() {
 
         double numNonLeafNodes = (double) parentChildMap.entrySet().stream().filter(x -> x.getValue().size() > 0).count();
         double numNonRootNodes = parentChildMap.size();
@@ -168,8 +170,8 @@ public class InheritanceAnalyses {
         double avgBranchingFactor = numNonRootNodes / (numNonLeafNodes + root);
         avgBranchingFactor = Math.round(avgBranchingFactor * 100.0) / 100.0;
 
-        System.out.println("Average branching factor for the inheritence hierarchy is : " + avgBranchingFactor +" children per class");
-
+       // System.out.println("Average branching factor for the inheritence hierarchy is : " + avgBranchingFactor +" children per class");
+        return avgBranchingFactor;
     }
 
 }
