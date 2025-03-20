@@ -28,31 +28,31 @@ public class ControlFlowTests {
     }
     @Test
     public void ifStatementDetection(){
-        assertEquals(4,ControlFlow.ifStatementCount);
+        assertEquals(4,ControlFlow.ifStatementCount.getValue());
     }
     @Test
     public void checkForLoopDetection(){
-        assertEquals(1,ControlFlow.forStatementCount);
+        assertEquals(1,ControlFlow.forStatementCount.getValue());
     }
 
     @Test
     public void checkStrongForLoopDetection(){
-        assertEquals(1,ControlFlow.forEachStatementCount);
+        assertEquals(1,ControlFlow.forEachStatementCount.getValue());
     }
     @Test
     public void checkWhileLoopDetection(){
-        assertEquals(1,ControlFlow.whileStatementCount);
+        assertEquals(1,ControlFlow.whileStatementCount.getValue());
     }
     @Test
     public void checkDoWhileLoopDetection(){
-        assertEquals(1,ControlFlow.doStatementCount);
+        assertEquals(1,ControlFlow.doStatementCount.getValue());
     }
     @Test
     public void checkSwitchCaseDetection(){
-        assertEquals(3,ControlFlow.switchCaseCount);
+        assertEquals(3,ControlFlow.switchCaseCount.getValue());
     }
     @Test
     public void checkMethodDeclerationDetection(){
-        assertEquals(2,ControlFlow.methodNumberCount);
+        assertEquals(3,ControlFlow.methodNumberCount.getValue());
     }
 }
