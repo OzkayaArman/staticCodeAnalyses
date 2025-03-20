@@ -1,4 +1,4 @@
-package Examples.Inheritance;
+package Inheritance.NoInheritance;
 
 public class Class1 {
 

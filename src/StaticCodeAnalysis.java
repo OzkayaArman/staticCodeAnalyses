@@ -10,7 +10,7 @@ public class StaticCodeAnalysis {
             File noCycleDIr = new File("examples/NonCyclic");
 
             //Nandi 
-            InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance");
+            InheritanceAnalyses ia = new InheritanceAnalyses("Examples/Inheritance/FourSub");
             ia.findMaximumBreadth();
             ia.findAverageBranchingFactor();
             
