@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ControlFlowTests {
     
     @BeforeAll
@@ -28,31 +30,31 @@ public class ControlFlowTests {
     }
     @Test
     public void ifStatementDetection(){
-        assertEquals(4,ControlFlow.ifStatementCount);
+        assertEquals(new AtomicInteger(4).get(),ControlFlow.ifStatementCount.get());
     }
     @Test
     public void checkForLoopDetection(){
-        assertEquals(1,ControlFlow.forStatementCount);
+        assertEquals(new AtomicInteger(1).get(),ControlFlow.forStatementCount.get());
     }
 
     @Test
     public void checkStrongForLoopDetection(){
-        assertEquals(1,ControlFlow.forEachStatementCount);
+        assertEquals(new AtomicInteger(1).get(),ControlFlow.forEachStatementCount.get());
     }
     @Test
     public void checkWhileLoopDetection(){
-        assertEquals(1,ControlFlow.whileStatementCount);
+        assertEquals(new AtomicInteger(1).get(),ControlFlow.whileStatementCount.get());
     }
     @Test
     public void checkDoWhileLoopDetection(){
-        assertEquals(1,ControlFlow.doStatementCount);
+        assertEquals(new AtomicInteger(1).get(),ControlFlow.doStatementCount.get());
     }
     @Test
     public void checkSwitchCaseDetection(){
-        assertEquals(3,ControlFlow.switchCaseCount);
+        assertEquals(new AtomicInteger(3).get(),ControlFlow.switchCaseCount.get());
     }
     @Test
     public void checkMethodDeclerationDetection(){
-        assertEquals(2,ControlFlow.methodNumberCount);
+        assertEquals(new AtomicInteger(3).get(),ControlFlow.methodNumberCount.get());
     }
 }

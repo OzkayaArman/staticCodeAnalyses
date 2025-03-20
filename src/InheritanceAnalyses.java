@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.github.javaparser.ast.CompilationUnit;
@@ -137,9 +138,10 @@ public class InheritanceAnalyses {
      * This method finds the maximum breadth of the inheritance hierarchy in the directory.
      * It prints the maximum breadth and the classes that have that breadth.
      */
-    public void findMaximumBreadth() {
+    public Map<String, HashSet<String>> findMaximumBreadth() {
         getAllClasses();
         findChildrenForAllClasses();
+        Map<String, HashSet<String>> broadest = new HashMap<>();
 
 
         for(Entry<String, SubClassCollection> entry : parentChildMap.entrySet()) {    
@@ -166,6 +168,7 @@ public class InheritanceAnalyses {
                 });
             }
         };
+        return broadest;
     }
 
     /**
@@ -174,7 +177,7 @@ public class InheritanceAnalyses {
      * The average branching factor is calculated as:
      *  num subclasses /num of parent classes
      */
-    public void findAverageBranchingFactor() {
+    public double findAverageBranchingFactor() {
 
 
         numberOfParentClasses = (double) parentChildMap.entrySet().stream().filter(x -> x.getValue().isParentClass()).count();
@@ -190,8 +193,8 @@ public class InheritanceAnalyses {
         avgBranchingFactor = numberOfSubClasses / numberOfParentClasses;
         avgBranchingFactor = Math.round(avgBranchingFactor * 100.0) / 100.0;
 
-        System.out.println("Average branching factor for the inheritence hierarchy is : " + avgBranchingFactor +" children per class");
-
+       // System.out.println("Average branching factor for the inheritence hierarchy is : " + avgBranchingFactor +" children per class");
+        return avgBranchingFactor;
     }
     /**
      *  This method returns the average branching factor for the inheritance hierarchy.
