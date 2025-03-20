@@ -21,7 +21,6 @@ public class StaticCodeAnalysis {
             System.out.println("First argument should be the path to your project folder");
             return;
         }
-        folder = "Examples/Inheritance/NoInheritance";
 
         try {
             ia = new InheritanceAnalyses(folder);
@@ -97,16 +96,18 @@ public class StaticCodeAnalysis {
     static private int calcuateScore(){
         int score;
         int cycleScore = 100;
-        int complexityScore = 100;
+        int complexityScore;
+        int inheritanceScore;
+
         for (int i = 1; i <= numCycles; i++){
             cycleScore -= (1/Math.pow(2, i)) * 100;
         }
 
+        complexityScore = Math.max(0,100 - cyclomaticComplexity);
+        inheritanceScore  =  Math.max(0,100 - (int)avgBranchingFactor - maxBreath);
 
-
+        score = (complexityScore + cycleScore + inheritanceScore)/3;
         
-        
-        return (cycleScore + complexityScore)/2;
+        return score;
     }
-
 }
