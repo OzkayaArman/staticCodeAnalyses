@@ -1,4 +1,5 @@
 
+import com.github.javaparser.ParserConfiguration.LanguageLevel;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -9,7 +10,7 @@ import com.github.javaparser.ast.ImportDeclaration;
 import java.io.File;
 import java.util.*;
 
-public class DependencyCycles {
+public class DependencyCycles extends Evaluator {
 
     // Dependency graph: Fully qualified class name → Set of dependencies (fully
     // qualified names)
@@ -19,6 +20,9 @@ public class DependencyCycles {
     // Parses all Java files in the given project directory and builds the
     // dependency graph.
     public void parseProject(File projectDir) throws Exception {
+        //depricated but used here to avoid excessive refactoring due to time constraints
+        StaticJavaParser.getConfiguration().setLanguageLevel(LanguageLevel.JAVA_18); 
+
         // File[] files = projectDir.listFiles((dir, name) -> name.endsWith(".java"));
         List<File> files = new ArrayList<>();
         traverseFolder(projectDir, files);
@@ -41,21 +45,6 @@ public class DependencyCycles {
 
             // Visit class declarations to track dependencies
             cu.accept(new DependencyVisitor(packageName, importMap), null);
-        }
-    }
-
-    // get all java files in directory and subdirectories
-    private void traverseFolder(File root, List<File> files) {
-        File[] list = root.listFiles();
-        if (list == null)
-            return;
-
-        for (File f : list) {
-            if (f.isDirectory()) {
-                traverseFolder(f, files);
-            } else if (f.getName().endsWith(".java")) {
-                files.add(f);
-            }
         }
     }
 

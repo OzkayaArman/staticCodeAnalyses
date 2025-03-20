@@ -12,13 +12,15 @@ import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.stmt.WhileStmt;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
-public class ControlFlow {
+public class ControlFlow extends Evaluator {
     
     public static final IntegerCustom ifStatementCount = new IntegerCustom(0);
     public static final IntegerCustom  forStatementCount =  new IntegerCustom(0);
@@ -32,8 +34,9 @@ public class ControlFlow {
 
     // Parses all Java files in the given project directory and builds the dependency graph.
     public void parseProject(File projectDir) throws Exception {
-        File[] files = projectDir.listFiles((dir, name) -> name.endsWith(".java"));
-        if (files == null) {
+        List<File> files = new ArrayList<>();
+        traverseFolder(projectDir, files);
+        if (files.size() == 0) {
             throw new Exception("Directory not found or no Java files in: " + projectDir);
         }
         //For every file

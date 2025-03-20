@@ -1,4 +1,4 @@
-package Examples.Example;
+package Inheritance.FourSub;
 
 public class Class5 {
     
